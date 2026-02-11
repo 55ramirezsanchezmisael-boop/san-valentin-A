@@ -108,21 +108,33 @@
     }
 
     .final-message {
-      margin-top: 220px;
-      font-size: 1.2em;
+      margin-top: 40px;
+      font-size: 1.3em;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
       animation: fadeIn 2s forwards;
+      position: relative;
+      z-index: 7;
     }
 
     .gallery {
       margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      z-index: 7;
     }
     .gallery img {
       width: 100%;
-      border-radius: 12px;
-      margin-bottom: 10px;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 14px;
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(20px) scale(0.95);
       animation: photoIn 1s forwards;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
 
     @keyframes photoIn {
@@ -223,7 +235,7 @@
       const msg = document.createElement('div');
       msg.className = 'final-message';
       msg.textContent = 'Este corazón late porque existes tú, hoy y siempre.';
-      document.body.appendChild(msg);
+      document.querySelector('.card').appendChild(msg);
     }
 
     function extraLove() {
@@ -241,3 +253,4 @@
   </script>
 </body>
 </html>
+
