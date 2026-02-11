@@ -118,6 +118,25 @@
     }
     .gallery img.active { opacity: .35; }
 
+    /* Fotos finales (no pantalla completa) */
+    .final-photo {
+      width: 100%;
+      max-width: 320px; /* base */
+      height: auto;
+      margin: 0 auto;
+      display: block;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
+
+    @media (min-width: 768px) {
+      .final-photo { max-width: 420px; }
+    }
+    .gallery img.active { opacity: .35; }
+
     .star {
       position: fixed;
       top: -10px;
@@ -227,7 +246,7 @@
     if(heart) heart.remove();
     if(initials) initials.remove();
 
-    // Mostrar fotos finales en tamaño razonable
+    // Mostrar fotos finales centradas y con tamaño razonable
     const gallery=document.getElementById('gallery');
     gallery.innerHTML='';
     gallery.classList.remove('hidden');
@@ -241,13 +260,7 @@
     images.forEach((src,i)=>{
       const img=document.createElement('img');
       img.src=src;
-      img.style.width='260px';
-      img.style.maxWidth='85%';
-      img.style.borderRadius='16px';
-      img.style.boxShadow='0 10px 25px rgba(0,0,0,0.4)';
-      img.style.opacity='0';
-      img.style.transform='scale(0.9)';
-      img.style.transition='opacity 1.5s ease, transform 1.5s ease';
+      img.className='final-photo';
       gallery.appendChild(img);
       setTimeout(()=>{ 
         img.style.opacity='1'; 
