@@ -12,10 +12,11 @@
       justify-content: center;
       align-items: center;
       background: radial-gradient(circle at top, #1b1f3b, #090a1a);
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       color: #fff;
       overflow: hidden;
     }
+
     .stars {
       position: fixed;
       inset: 0;
@@ -25,23 +26,23 @@
         radial-gradient(2px 2px at 40% 80%, #fff, transparent),
         radial-gradient(1px 1px at 90% 60%, #fff, transparent),
         radial-gradient(1.5px 1.5px at 10% 70%, #fff, transparent);
-      background-repeat: repeat;
       background-size: 200px 200px;
       opacity: 0.6;
       z-index: -1;
     }
+
     .card {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255,255,255,0.15);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       max-width: 380px;
       text-align: center;
       backdrop-filter: blur(6px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       position: relative;
+      z-index: 5;
     }
-    h1 { font-size: 1.8em; margin-bottom: 15px; }
-    p { font-size: 1.1em; margin-bottom: 25px; }
+
     button {
       padding: 10px 20px;
       margin: 10px;
@@ -49,39 +50,39 @@
       border-radius: 25px;
       font-size: 1em;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform .2s;
     }
     button:hover { transform: scale(1.1); }
-    .yes { background: #ff4d6d; color: #fff; }
-    .no { background: #fff; color: #ff4d6d; }
-    .extra { background: #ffd6e0; color: #ff4d6d; }
-    .hidden { display: none; }
 
-    /* Corazón gigante */
+    .yes { background:#ff4d6d; color:#fff; }
+    .no { background:#fff; color:#ff4d6d; }
+    .extra { background:#ffd6e0; color:#ff4d6d; }
+    .hidden { display:none; }
+
     .big-heart {
       position: fixed;
       width: 180px;
       height: 180px;
       background: #ff4d6d;
       transform: rotate(45deg);
-      animation: beat 1.2s infinite;
       left: 50%;
       top: 50%;
       margin-left: -90px;
       margin-top: -90px;
-      z-index: 5;
+      animation: beat 1.2s infinite;
+      z-index: 3;
     }
     .big-heart::before,
     .big-heart::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 180px;
       height: 180px;
       background: #ff4d6d;
       border-radius: 50%;
     }
-    .big-heart::before { top: -90px; left: 0; }
-    .big-heart::after { left: -90px; top: 0; }
+    .big-heart::before { top:-90px; }
+    .big-heart::after { left:-90px; }
 
     .initials {
       position: fixed;
@@ -90,56 +91,32 @@
       transform: translate(-50%, -50%);
       font-size: 2.5em;
       font-weight: bold;
-      z-index: 6;
+      z-index: 4;
       animation: fadeIn 2s forwards;
-    }
-
-    @keyframes beat {
-      0% { transform: scale(1) rotate(45deg); }
-      25% { transform: scale(1.1) rotate(45deg); }
-      50% { transform: scale(1) rotate(45deg); }
-      75% { transform: scale(1.15) rotate(45deg); }
-      100% { transform: scale(1) rotate(45deg); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
 
     .final-message {
-      margin-top: 40px;
-      font-size: 1.3em;
-      text-align: center;
-      color: #fff;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-shadow: 0 2px 8px rgba(0,0,0,.8);
       animation: fadeIn 2s forwards;
-      position: relative;
-      z-index: 7;
     }
 
     .gallery {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      position: relative;
-      z-index: 7;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
     }
     .gallery img {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      max-height: 220px;
+      height: 100%;
       object-fit: cover;
-      border-radius: 14px;
       opacity: 0;
-      transform: translateY(20px) scale(0.95);
-      animation: photoIn 1s forwards;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: opacity 2s ease-in-out;
     }
-
-    @keyframes photoIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .gallery img.active { opacity: .35; }
 
     .star {
       position: fixed;
@@ -153,103 +130,130 @@
       z-index: 10;
     }
 
-    @keyframes fall {
-      to { transform: translateY(110vh); opacity: 0; }
+    @keyframes beat {
+      0%{transform:scale(1) rotate(45deg);} 
+      50%{transform:scale(1.15) rotate(45deg);} 
+      100%{transform:scale(1) rotate(45deg);} 
     }
-    }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+    @keyframes fall { to{ transform:translateY(110vh); opacity:0;} }
   </style>
 </head>
 <body>
-  <div class="stars"></div>
 
-  <div class="card">
-    <h1>💘 Hola amor 💘</h1>
-    <p>Desde que llegaste a mi vida, todo es más bonito.<br>
-    ¿Te gustaría ser mi San Valentín? 💖</p>
-    <div id="buttons">
-      <button class="yes" onclick="sayYes()">Sí 💕</button>
-      <button class="no" onclick="sayNo()">No 😢</button>
-    </div>
-    <h2 id="response" class="hidden"></h2>
+<div class="stars"></div>
+<div id="gallery" class="gallery hidden"></div>
 
-    <div id="gallery" class="gallery hidden">
-      <img src="foto1.jpg" style="animation-delay:0s">
-      <img src="foto2.jpg" style="animation-delay:0.6s">
-      <img src="foto3.jpg" style="animation-delay:1.2s">
-    </div>
+<div class="card">
+  <h1>💘 Hola amor 💘</h1>
+  <p>Desde que llegaste a mi vida, todo es más bonito.<br>¿Te gustaría ser mi San Valentín? 💖</p>
 
-    <button id="extraBtn" class="extra hidden" onclick="extraLove()">
-      Te amooo muchísimo princesa 💖
-    </button>
+  <div id="buttons">
+    <button class="yes" onclick="sayYes()">Sí 💕</button>
+    <button class="no" onclick="sayNo()">No 😢</button>
   </div>
 
-  <audio id="bgMusic" src="bonita_bonita_4AMtapes.mp3" loop></audio>
+  <h2 id="response" class="hidden"></h2>
 
-  <script>
-    const texts = [
-      '¿Segura que ya lo pensaste? 🤔',
-      '¿Segurísima? 🥺',
-      'Piénsalo con el corazón 💖',
-      'Última oportunidad 😢'
-    ];
-    let idx = 0;
+  <button id="extraBtn" class="extra hidden" onclick="extraLove()">
+    Te amooo muchísimo princesa 💖
+  </button>
+</div>
 
-    function sayYes() {
-      document.getElementById('buttons').classList.add('hidden');
-      const r = document.getElementById('response');
-      r.textContent = 'Gracias por elegirnos todos los días 💕';
-      r.classList.remove('hidden');
-      playMusic();
-      showHeart();
-      document.getElementById('gallery').classList.remove('hidden');
-      document.getElementById('extraBtn').classList.remove('hidden');
+<audio id="bgMusic" src="bonita_bonita_4AMtapes.mp3" loop></audio>
+
+<script>
+  const texts = ['¿Segura que ya lo pensaste? 🤔','¿Segurísima? 🥺','Piénsalo con el corazón 💖','Última oportunidad 😢'];
+  let idx = 0;
+
+  function sayYes(){
+    document.getElementById('buttons').classList.add('hidden');
+    const r = document.getElementById('response');
+    r.textContent = 'Gracias por elegirnos todos los días 💕';
+    r.classList.remove('hidden');
+    playMusic();
+    showHeart();
+    startGallery();
+    document.getElementById('extraBtn').classList.remove('hidden');
+  }
+
+  function sayNo(){
+    const btn = document.querySelector('.no');
+    btn.textContent = texts[Math.min(idx, texts.length-1)];
+    idx++;
+    btn.style.position='absolute';
+    btn.style.left=Math.random()*200+'px';
+    btn.style.top=Math.random()*200+'px';
+  }
+
+  function playMusic(){
+    const m=document.getElementById('bgMusic');
+    m.volume=0.5; m.play().catch(()=>{});
+  }
+
+  function showHeart(){
+    document.body.insertAdjacentHTML('beforeend',`
+      <div class="big-heart"></div>
+      <div class="initials">A ❤ M</div>
+    `);
+    const msg=document.createElement('div');
+    msg.className='final-message';
+    msg.textContent='Este corazón late porque existes tú, hoy y siempre.';
+    document.querySelector('.card').appendChild(msg);
+  }
+
+  function startGallery(){
+    const gallery=document.getElementById('gallery');
+    gallery.classList.remove('hidden');
+    const imgs=['foto1.jpg','foto2.jpg','foto3.jpg'];
+    let i=0;
+    imgs.forEach(src=>{
+      const im=document.createElement('img'); im.src=src; gallery.appendChild(im);
+    });
+    const list=gallery.querySelectorAll('img');
+    list[0].classList.add('active');
+    setInterval(()=>{
+      list[i].classList.remove('active');
+      i=(i+1)%list.length;
+      list[i].classList.add('active');
+    },4000);
+  }
+
+  function extraLove(){
+    // Ocultar todo lo demás
+    document.querySelector('.card').classList.add('hidden');
+    const heart=document.querySelector('.big-heart');
+    const initials=document.querySelector('.initials');
+    if(heart) heart.remove();
+    if(initials) initials.remove();
+
+    // Mostrar fotos finales
+    const gallery=document.getElementById('gallery');
+    gallery.innerHTML='';
+    gallery.classList.remove('hidden');
+
+    const images=['foto1.jpg','foto2.jpg','foto3.jpg'];
+    images.forEach((src,i)=>{
+      const img=document.createElement('img');
+      img.src=src;
+      img.style.opacity='0';
+      img.style.transition='opacity 2s ease-in-out';
+      gallery.appendChild(img);
+      setTimeout(()=>{ img.style.opacity='0.9'; }, i*2000);
+    });
+
+    // Lluvia de estrellas
+    for(let i=0;i<60;i++){
+      setTimeout(()=>{
+        const s=document.createElement('div');
+        s.className='star';
+        s.style.left=Math.random()*100+'vw';
+        s.style.animationDuration=2+Math.random()*3+'s';
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),5000);
+      },i*120);
     }
-
-    function sayNo() {
-      const noBtn = document.querySelector('.no');
-      const card = document.querySelector('.card');
-      noBtn.textContent = texts[Math.min(idx, texts.length - 1)];
-      idx++;
-      const rect = card.getBoundingClientRect();
-      noBtn.style.position = 'absolute';
-      noBtn.style.left = Math.random() * (rect.width - 80) + 'px';
-      noBtn.style.top = Math.random() * (rect.height - 40) + 'px';
-    }
-
-    function playMusic() {
-      const m = document.getElementById('bgMusic');
-      m.volume = 0.5;
-      m.play().catch(()=>{});
-    }
-
-    function showHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'big-heart';
-      document.body.appendChild(heart);
-
-      const initials = document.createElement('div');
-      initials.className = 'initials';
-      initials.textContent = 'A  ❤  M';
-      document.body.appendChild(initials);
-
-      const msg = document.createElement('div');
-      msg.className = 'final-message';
-      msg.textContent = 'Este corazón late porque existes tú, hoy y siempre.';
-      document.querySelector('.card').appendChild(msg);
-    }
-
-    function extraLove() {
-      for (let i = 0; i < 40; i++) {
-        setTimeout(() => {
-          const star = document.createElement('div');
-          star.className = 'star';
-          star.style.left = Math.random() * 100 + 'vw';
-          star.style.animationDuration = 2 + Math.random() * 3 + 's';
-          document.body.appendChild(star);
-          setTimeout(() => star.remove(), 5000);
-        }, i * 100);
-      }
-    }
-  </script>
+  }
+</script>
 </body>
 </html>
