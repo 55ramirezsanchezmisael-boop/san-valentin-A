@@ -227,19 +227,32 @@
     if(heart) heart.remove();
     if(initials) initials.remove();
 
-    // Mostrar fotos finales
+    // Mostrar fotos finales en tamaño razonable
     const gallery=document.getElementById('gallery');
     gallery.innerHTML='';
     gallery.classList.remove('hidden');
+    gallery.style.display='flex';
+    gallery.style.justifyContent='center';
+    gallery.style.alignItems='center';
+    gallery.style.flexDirection='column';
+    gallery.style.gap='20px';
 
     const images=['foto1.jpg','foto2.jpg','foto3.jpg'];
     images.forEach((src,i)=>{
       const img=document.createElement('img');
       img.src=src;
+      img.style.width='260px';
+      img.style.maxWidth='85%';
+      img.style.borderRadius='16px';
+      img.style.boxShadow='0 10px 25px rgba(0,0,0,0.4)';
       img.style.opacity='0';
-      img.style.transition='opacity 2s ease-in-out';
+      img.style.transform='scale(0.9)';
+      img.style.transition='opacity 1.5s ease, transform 1.5s ease';
       gallery.appendChild(img);
-      setTimeout(()=>{ img.style.opacity='0.9'; }, i*2000);
+      setTimeout(()=>{ 
+        img.style.opacity='1'; 
+        img.style.transform='scale(1)';
+      }, i*1800);
     });
 
     // Lluvia de estrellas
